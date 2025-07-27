@@ -1,11 +1,12 @@
-import pymysql # Library to connect Python to MySQL
+import MySQLdb
 
-conn = pymysql.connect(
+# Connect to the database
+db = MySQLdb.connect(
     host='localhost',
     user='root',
     password='7Suhani$$',
-    db='TrainBookingDB',
-    cursorclass=pymysql.cursors.DictCursor
+    db='TrainBookingDB'
 )
 
-cursor = conn.cursor() # Used to execute SQL queries
+# Create a cursor object to execute queries
+cursor = db.cursor()
