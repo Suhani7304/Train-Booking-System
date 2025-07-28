@@ -1,5 +1,6 @@
 import pymysql
 from flask import Flask
+import csv
 
 # Connect to database
 conn = pymysql.connect(
@@ -11,6 +12,19 @@ conn = pymysql.connect(
 
 cursor = conn.cursor()
 
+with open(r"C:\Users\abcde\Downloads\train_full_routes.csv", 'r') as file:
+    reader = csv.reader(file) #creates a csv reader.. each row is list of string
+    next(reader)  # Skip header
+
+    # 3. Insert Query
+    insert_query = """
+    INSERT INTO Route (TrainID, Route)
+    VALUES (%s, %s)  
+    """ # %s corresponds to the value we will insert
+
+    for row in reader:
+        cursor.execute(insert_query, row)
+
 with open(r"C:\Users\abcde\Downloads\train_dataset.csv", 'r') as file:
     reader = csv.reader(file) #creates a csv reader.. each row is list of string
     next(reader)  # Skip header
@@ -18,8 +32,8 @@ with open(r"C:\Users\abcde\Downloads\train_dataset.csv", 'r') as file:
     # 3. Insert Query
     insert_query = """
     INSERT INTO train (TrainID, TrainName, Source, Destination, ArrivalTime, DepartureTime, Price)
-    VALUES (%s, %s, %s, %s, %s, %s, %s)  #%s corresponds to the value we will insert
-    """
+    VALUES (%s, %s, %s, %s, %s, %s, %s) 
+    """ # %s corresponds to the value we will insert
 
     for row in reader:
         cursor.execute(insert_query, row)
