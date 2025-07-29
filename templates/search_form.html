@@ -1,0 +1,17 @@
+<!-- templates/search_form.html -->
+<!DOCTYPE html>
+<html>
+<head><title>Search Trains</title></head>
+<body>
+    <h2>Search for Trains</h2>
+    <form method="POST" action="/search">
+        <label for="source">From:</label>
+        <input type="text" name="source" required><br><br>
+
+        <label for="destination">To:</label>
+        <input type="text" name="destination" required><br><br>
+
+        <button type="submit">Search Trains</button>
+    </form>
+</body>
+</html>

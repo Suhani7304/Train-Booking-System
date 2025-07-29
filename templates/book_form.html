@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Passenger Details</title>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+    <h2>Enter Passenger Details</h2>
+    <form method="POST" action="/confirm_booking">
+        <input type="hidden" name="train_id" value="{{ data.train_id }}">
+        <input type="hidden" name="train_name" value="{{ data.train_name }}">
+        <input type="hidden" name="source" value="{{ data.source }}">
+        <input type="hidden" name="destination" value="{{ data.destination }}">
+        <input type="hidden" name="departure" value="{{ data.departure }}">
+        <input type="hidden" name="arrival" value="{{ data.arrival }}">
+        <input type="hidden" name="route" value="{{ data.route }}">
+
+        <label>Name:</label><input name="name" required><br>
+        <label>Age:</label><input name="age" required><br>
+        <label>Email:</label><input name="email" type="email" required><br>
+        <label>Gender:</label>
+        <select name="gender">
+            <option>Male</option><option>Female</option><option>Other</option>
+        </select><br>
+        <label>Seat Type:</label>
+        <select name="seat_type" onchange="updatePrice(this.value)">
+            <option value="general" data-price="{{ data.general }}">General</option>
+            <option value="sleeper" data-price="{{ data.sleeper }}">Sleeper</option>
+            <option value="ac3" data-price="{{ data.ac3 }}">AC 3-tier</option>
+            <option value="ac2" data-price="{{ data.ac2 }}">AC 2-tier</option>
+            <option value="ac1" data-price="{{ data.ac1 }}">AC 1st</option>
+        </select><br>
+        <input type="hidden" id="final_price" name="price" value="{{ data.general }}">
+        <label>Date:</label><input name="date" type="date" required><br>
+        <label>Password:</label><input name="password" type="password" required><br>
+
+        <button type="submit">Book Train</button>
+    </form>
+</body>
+</html>

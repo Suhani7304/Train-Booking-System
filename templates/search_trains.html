@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head><title>Available Trains</title></head>
+<body>
+    <h2>Available Trains from {{ source }} to {{ destination }}</h2>
+    {% for train in trains %}
+    <div style="border: 1px solid black; margin: 10px; padding: 10px;">
+        <p><strong>{{ train.train_name }}</strong> (ID: {{ train.train_id }})</p>
+        <p>Route: {{ train.route }}</p>
+        <p>From: {{ train.source }} - To: {{ train.destination }}</p>
+        <p>Departure: {{ train.departure }} | Arrival: {{ train.arrival }}</p>
+        <p>
+            Price:
+            General ₹{{ train.general }},
+            Sleeper ₹{{ train.sleeper }},
+            AC 3-tier ₹{{ train.ac3 }},
+            AC 2-tier ₹{{ train.ac2 }},
+            AC 1st ₹{{ train.ac1 }}
+        </p>
+        <form method="POST" action="/book">
+            {% for key, val in train.items() %}
+                <input type="hidden" name="{{ key }}" value="{{ val }}">
+            {% endfor %}
+            <button type="submit">Book</button>
+        </form>
+    </div>
+    {% endfor %}
+</body>
+</html>

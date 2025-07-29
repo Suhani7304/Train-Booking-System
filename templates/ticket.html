@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><title>Booking Success</title></head>
+<body>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+          {% for message in messages %}
+            <li><strong>{{ message }}</strong></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <a href="/download_ticket/{{ filename }}"><button>Download Ticket</button></a>
+</body>
+</html>
