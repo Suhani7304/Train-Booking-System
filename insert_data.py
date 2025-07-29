@@ -4,8 +4,8 @@ import csv
 # Connect to database
 conn = pymysql.connect(
     host='localhost',
-    user='root',
-    password='7Suhani$$',
+    user=os.environ.get('DB_USER'),
+    password=os.environ.get('DB_PASSWORD'),
     db='TrainBookingDB'
 )
 
