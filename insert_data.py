@@ -30,8 +30,8 @@ with open(r"C:\Users\abcde\Downloads\train_dataset.csv", 'r') as file:
 
     # 3. Insert Query
     insert_query = """
-    INSERT INTO train (TrainID, TrainName, Source, Destination, ArrivalTime, DepartureTime, Price)
-    VALUES (%s, %s, %s, %s, %s, %s, %s) 
+    INSERT INTO train (ID, TrainID, TrainName, Source, Destination, ArrivalTime, DepartureTime, Price)
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s) 
     """ # %s corresponds to the value we will insert
 
     for row in reader:
