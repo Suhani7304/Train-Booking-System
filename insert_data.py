@@ -1,5 +1,9 @@
 import pymysql
 import csv
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Connect to database
 conn = pymysql.connect(
@@ -11,7 +15,7 @@ conn = pymysql.connect(
 
 cursor = conn.cursor()
 
-with open(r"C:\Users\abcde\Downloads\train_full_routes.csv", 'r') as file:
+with open(r"C:\Users\abcde\Downloads\train_routes.csv", 'r') as file:
     reader = csv.reader(file) #creates a csv reader.. each row is list of string
     next(reader)  # Skip header
 
@@ -37,7 +41,7 @@ with open(r"C:\Users\abcde\Downloads\train_dataset.csv", 'r') as file:
     for row in reader:
         cursor.execute(insert_query, row)
 
-with open(r"C:\Users\abcde\Downloads\train_seat_dataset.csv", 'r') as file:
+with open(r"C:\Users\abcde\Downloads\train_seats.csv", 'r') as file:
     reader = csv.reader(file) #creates a csv reader.. each row is list of string
     next(reader)  # Skip header
 

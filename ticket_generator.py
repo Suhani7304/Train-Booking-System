@@ -1,5 +1,5 @@
 from fpdf import FPDF
-import os
+from io import BytesIO
 
 def generate_ticket_pdf(data):
     pdf = FPDF()
@@ -9,6 +9,8 @@ def generate_ticket_pdf(data):
     for key, value in data.items():
         pdf.cell(200, 10, txt=f"{key.capitalize()}: {value}", ln=True)
 
-    if not os.path.exists("static"):
-        os.mkdir("static")
-    pdf.output("static/ticket.pdf")
+    # Output to BytesIO
+    pdf_bytes = BytesIO()
+    pdf.output(pdf_bytes)
+    pdf_bytes.seek(0)  # reset pointer to start
+    return pdf_bytes

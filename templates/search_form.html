@@ -1,4 +1,3 @@
-<!-- templates/search_form.html -->
 <!DOCTYPE html>
 <html>
 <head><title>Search Trains</title></head>
@@ -6,10 +5,20 @@
     <h2>Search for Trains</h2>
     <form method="POST" action="/search">
         <label for="source">From:</label>
-        <input type="text" name="source" required><br><br>
+        <select name="source" required>
+            <option value="">-- Select Source --</option>
+            {% for station in source_stations %}
+                <option value="{{ station }}">{{ station }}</option>
+            {% endfor %}
+        </select><br><br>
 
         <label for="destination">To:</label>
-        <input type="text" name="destination" required><br><br>
+        <select name="destination" required>
+            <option value="">-- Select Destination --</option>
+            {% for station in destination_stations %}
+                <option value="{{ station }}">{{ station }}</option>
+            {% endfor %}
+        </select><br><br>
 
         <button type="submit">Search Trains</button>
     </form>

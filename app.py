@@ -11,13 +11,15 @@ app = Flask(__name__)
 app.secret_key = os.environ.get('FLASK_SECRET_KEY')
 
 # Connect to database
-conn = pymysql.connect(
-    host='localhost',
-    user=os.environ.get('DB_USER'),
-    password=os.environ.get('DB_PASSWORD'),
-    db='TrainBookingDB',
-    cursorclass=pymysql.cursors.DictCursor
-)
+def get_cursor():
+    conn = pymysql.connect(
+        host='localhost',
+        user=os.environ.get('DB_USER'),
+        password=os.environ.get('DB_PASSWORD'),
+        db='TrainBookingDB',
+        cursorclass=pymysql.cursors.DictCursor  #get_cursor()), fetchone() returns a dictionary
+    )
+    return conn, conn.cursor()
 
 @app.route('/')
 def index():
@@ -26,11 +28,30 @@ def index():
 @app.route('/search', methods=['GET', 'POST'])
 def search_trains():
     if request.method == 'GET':
-        return render_template('search_form.html')
+        conn, cursor = get_cursor()
+        cursor.execute("SELECT Route FROM Route")
+        routes = cursor.fetchall()
+
+        sources = set()
+        destinations = set()
+
+        for r in routes:
+            route_string = r['Route']
+            stations = [s.strip() for s in route_string.split('->')]
+            if len(stations) >= 2:
+                sources.update(stations[:-1])       # All except last
+                destinations.update(stations[1:])   # All except first
+
+        cursor.close()
+        conn.close()
+
+        return render_template('search_form.html',
+                               source_stations=sorted(sources),
+                               destination_stations=sorted(destinations))
     if request.method == 'POST':
         source = request.form['source']
         destination = request.form['destination']
-        cursor = conn.cursor()  # can run sql queries here
+        conn, cursor = get_cursor()  # can run sql queries here
 
         # Get all train IDs that include both source and destination
         cursor.execute("SELECT * FROM train ORDER BY TrainID, ID")
@@ -50,17 +71,17 @@ def search_trains():
             for i, row in enumerate(stops):
                 if row['Source'].lower() == source.lower():
                     src_index = i
-                if row['Destination'].lower() == destination.lower() and src_index != -1 and i > src_index:
+                if row['Destination'].lower() == destination.lower() and src_index != -1 and i >= src_index:
                     dest_index = i
                     break
             if src_index != -1 and dest_index != -1:
                 segment = stops[src_index:dest_index+1]
-                total_price = sum([seg['Price'] for seg in segment])
-                general = total_price
+                general = sum([seg['Price'] for seg in segment])
                 sleeper = general + 50
                 ac3 = general + 200
                 ac2 = general + 300
                 ac1 = general + 500
+                chair_car = general + 100
                 train_info = {
                     'train_id': tid,
                     'train_name': stops[0]['TrainName'],
@@ -68,17 +89,19 @@ def search_trains():
                     'destination': destination,
                     'arrival': stops[src_index]['ArrivalTime'],
                     'departure': stops[src_index]['DepartureTime'],
-                    'general': general,
-                    'sleeper': sleeper,
-                    'ac1': ac1,
-                    'ac2': ac2,
-                    'ac3': ac3,
+                    'CC': chair_car,
+                    'SL': sleeper,
+                    'A1': ac1,
+                    'A2': ac2,
+                    'A3': ac3,
                 }
-                cursor.execute("SELECT Route FROM route WHERE TrainID = %s", (tid,))
+                cursor.execute("SELECT Route FROM Route WHERE TrainID = %s", (tid,))
                 route_data = cursor.fetchone()
                 if route_data:
                     train_info['route'] = route_data['Route']
                 train_data.append(train_info)
+        cursor.close()
+        conn.close()
 
         return render_template('search_trains.html', trains=train_data, source=source, destination=destination)
     return redirect(url_for('index'))
@@ -91,14 +114,87 @@ def book_train():
 @app.route('/confirm_booking', methods=['POST'])
 def confirm_booking():
     data = request.form.to_dict()
-    generate_ticket_pdf(data)
-    flash("Train booked successfully!")
-    return render_template('ticket.html', filename='ticket.pdf')
 
-@app.route('/download_ticket/<filename>')
-def download_ticket(filename):
-    path = os.path.join('static', filename)
-    return send_file(path, as_attachment=True)
+    name = data.get("name")
+    age = int(data.get("age"))
+    gender = data.get("gender")
+    email = data.get("email")
+    password = data.get("password")
+    seat_type = data.get("seat_type")
+    travel_date = data.get("travel_date")
+    train_id = int(data.get("train_id"))
+    source = data.get("source")
+    destination = data.get("destination")
+    price = float(data.get("price"))
+    booking_time = datetime.now()
+
+    conn, cursor = get_cursor()
+
+    # 1. Insert or get Passenger
+    cursor.execute("SELECT PassengerID FROM Passenger WHERE Email=%s AND PassengerName=%s", (email, name))
+    result = cursor.fetchone()
+    if result:
+        passenger_id = result[0]
+        print("passenger found")
+    else:
+        cursor.execute("""
+            INSERT INTO Passenger (PassengerName, Age, Gender, Email, Password)
+            VALUES (%s, %s, %s, %s, %s)
+        """, (name, age, gender, email, password))
+        passenger_id = cursor.lastrowid
+        print("passenger added")
+
+    # 2. Get SeatID and TotalSeats
+    cursor.execute("SELECT SeatID, TotalSeats FROM Seats WHERE TrainID=%s AND SeatType=%s", (train_id, seat_type))
+    seat = cursor.fetchone()
+    if seat:
+        seat_id, total_seats = seat['SeatID'], int(seat['TotalSeats'])
+        # Check availability
+        cursor.execute("""
+            SELECT AvailabilityID, LeftSeats FROM SeatAvailability
+            WHERE SeatID=%s AND TravelDate=%s AND Source=%s AND Destination=%s
+        """, (seat_id, travel_date, source, destination))
+        available = cursor.fetchone()
+        print("adding into seats")
+
+        if available:
+            availability_id, left = available
+            if left <= 0:
+                print("no seats")
+                flash("Booking failed: No seats left.")
+                cursor.close()
+                conn.close()
+                return redirect(url_for('index'))
+            cursor.execute("UPDATE SeatAvailability SET LeftSeats=%s WHERE AvailabilityID=%s", (left - 1, availability_id))
+        else:
+            cursor.execute("""
+                INSERT INTO SeatAvailability (SeatID, TravelDate, Source, Destination, LeftSeats)
+                VALUES (%s, %s, %s, %s, %s)
+            """, (seat_id, travel_date, source, destination, int(total_seats) - 1))
+            print("Seat uodated")
+    else:
+        flash("Error: Seat info not found.")
+        return redirect(url_for('index'))
+
+    # 3. Insert into Booking
+    cursor.execute("""
+        INSERT INTO Booking (PassengerID, TrainID, SeatType, TravelDate, Source, Destination, BookingTime, Price)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+    """, (passenger_id, train_id, seat_type, travel_date, source, destination, booking_time, price))
+    print("booking updated")
+
+    conn.commit() 
+    cursor.close()
+    conn.close()
+
+    pdf_bytes = generate_ticket_pdf(data)
+    return send_file(
+        pdf_bytes,
+        mimetype='application/pdf',
+        as_attachment=True,
+        download_name=f"{name}_ticket.pdf"
+    )
+
 
 if __name__ == '__main__':
     app.run(debug=True)

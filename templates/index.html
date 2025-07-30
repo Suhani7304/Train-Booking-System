@@ -4,6 +4,16 @@
     <title>Train Booking</title>
 </head>
 <body>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div style="color: red;">
+            {% for msg in messages %}
+                <p>{{ msg }}</p>
+            {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
     <h1>Welcome to Train Booking System</h1>
     <button onclick="location.href='/search'">Book Train</button>
     <button onclick="alert('Coming Soon!')">View/Cancel Booking</button>
