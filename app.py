@@ -17,7 +17,7 @@ def get_cursor():
         user=os.environ.get('DB_USER'),
         password=os.environ.get('DB_PASSWORD'),
         db='TrainBookingDB',
-        cursorclass=pymysql.cursors.DictCursor  #get_cursor()), fetchone() returns a dictionary
+        cursorclass=pymysql.cursors.DictCursor  #get_cursor()), fetchone(), fetchall() returns a dictionary
     )
     return conn, conn.cursor()
 
@@ -121,7 +121,7 @@ def confirm_booking():
     email = data.get("email")
     password = data.get("password")
     seat_type = data.get("seat_type")
-    travel_date = data.get("travel_date")
+    travel_date = data.get("date")
     train_id = int(data.get("train_id"))
     source = data.get("source")
     destination = data.get("destination")
@@ -134,7 +134,7 @@ def confirm_booking():
     cursor.execute("SELECT PassengerID FROM Passenger WHERE Email=%s AND PassengerName=%s", (email, name))
     result = cursor.fetchone()
     if result:
-        passenger_id = result[0]
+        passenger_id = result['PassengerID']
         print("passenger found")
     else:
         cursor.execute("""
@@ -142,7 +142,6 @@ def confirm_booking():
             VALUES (%s, %s, %s, %s, %s)
         """, (name, age, gender, email, password))
         passenger_id = cursor.lastrowid
-        print("passenger added")
 
     # 2. Get SeatID and TotalSeats
     cursor.execute("SELECT SeatID, TotalSeats FROM Seats WHERE TrainID=%s AND SeatType=%s", (train_id, seat_type))
@@ -155,13 +154,12 @@ def confirm_booking():
             WHERE SeatID=%s AND TravelDate=%s AND Source=%s AND Destination=%s
         """, (seat_id, travel_date, source, destination))
         available = cursor.fetchone()
-        print("adding into seats")
 
         if available:
             availability_id, left = available
             if left <= 0:
-                print("no seats")
                 flash("Booking failed: No seats left.")
+                conn.rollback()
                 cursor.close()
                 conn.close()
                 return redirect(url_for('index'))
@@ -171,7 +169,6 @@ def confirm_booking():
                 INSERT INTO SeatAvailability (SeatID, TravelDate, Source, Destination, LeftSeats)
                 VALUES (%s, %s, %s, %s, %s)
             """, (seat_id, travel_date, source, destination, int(total_seats) - 1))
-            print("Seat uodated")
     else:
         flash("Error: Seat info not found.")
         return redirect(url_for('index'))
@@ -181,13 +178,13 @@ def confirm_booking():
         INSERT INTO Booking (PassengerID, TrainID, SeatType, TravelDate, Source, Destination, BookingTime, Price)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
     """, (passenger_id, train_id, seat_type, travel_date, source, destination, booking_time, price))
-    print("booking updated")
 
     conn.commit() 
     cursor.close()
     conn.close()
 
     pdf_bytes = generate_ticket_pdf(data)
+    pdf_bytes.seek(0)
     return send_file(
         pdf_bytes,
         mimetype='application/pdf',

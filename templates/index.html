@@ -4,6 +4,8 @@
     <title>Train Booking</title>
 </head>
 <body>
+    <!-- to se flash msg in html-->
+     <!--all the flash messages are saved in get_flashed_messages().. provided by jinja2 and it is by default passed tp html pg rendered... when html teemplate call this function... flash message wll be removed from this function-->
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             <div style="color: red;">

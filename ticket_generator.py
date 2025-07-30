@@ -9,8 +9,5 @@ def generate_ticket_pdf(data):
     for key, value in data.items():
         pdf.cell(200, 10, txt=f"{key.capitalize()}: {value}", ln=True)
 
-    # Output to BytesIO
-    pdf_bytes = BytesIO()
-    pdf.output(pdf_bytes)
-    pdf_bytes.seek(0)  # reset pointer to start
-    return pdf_bytes
+    pdf_output = pdf.output(dest='S').encode('latin1')
+    return BytesIO(pdf_output)
