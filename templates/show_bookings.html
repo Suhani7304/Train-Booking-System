@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Bookings</title>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <style>
+        .status-box {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: bold;
+            display: inline-block;
+            font-size: 12px;
+            color: white;
+        }
+        .confirmed {
+            background-color: #28a745;
+        }
+        .cancelled {
+            background-color: #dc3545;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 8px 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>Your Bookings</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>S.No.</th>
+                <th>Train ID</th>
+                <th>Train Name</th>
+                <th>Booking ID</th>
+                <th>Booking Date</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Arrival Time</th>
+                <th>Departure Time</th>
+                <th>Seat Type</th>
+                <th>Travel Date</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Cancel Booking</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr id="row{{ loop.index }}">
+                <td>{{ loop.index }}</td>
+                <td>{{ booking.TrainID }}</td>
+                <td>{{ booking.TrainName }}</td>
+                <td>{{ booking.BookingID }}</td>
+                <td>{{ booking.BookingTime }}</td>
+                <td>{{ booking.Source }}</td>
+                <td>{{ booking.Destination }}</td>
+                <td>{{ booking.ArrivalTime }}</td>
+                <td>{{ booking.DepartureTime }}</td>
+                <td>{{ booking.SeatType }}</td>
+                <td>{{ booking.TravelDate }}</td>
+                <td>{{ booking.Price }}</td>
+                <td>
+                    {% if booking.Status == 'Confirmed' %}
+                        <span class="status-box confirmed">Confirmed</span>
+                    {% elif booking.Status == 'Cancelled' %}
+                        <span class="status-box cancelled">Cancelled</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if booking.Status != 'Cancelled' %}
+                    <button class="cancel-booking-btn" 
+                            data-booking-id="{{ booking.BookingID }}" 
+                            data-row-id="row{{ loop.index }}">
+                        Cancel Booking
+                    </button>
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="14" style="text-align:center;">No bookings found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -156,7 +156,7 @@ def confirm_booking():
         available = cursor.fetchone()
 
         if available:
-            availability_id, left = available
+            availability_id, left = available['AvailabilityID'], available['LeftSeats']
             if left <= 0:
                 flash("Booking failed: No seats left.")
                 conn.rollback()
@@ -175,22 +175,95 @@ def confirm_booking():
 
     # 3. Insert into Booking
     cursor.execute("""
-        INSERT INTO Booking (PassengerID, TrainID, SeatType, TravelDate, Source, Destination, BookingTime, Price)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-    """, (passenger_id, train_id, seat_type, travel_date, source, destination, booking_time, price))
+        INSERT INTO Booking (PassengerID, TrainID, SeatType, TravelDate, Source, Destination, BookingTime, Price, Status)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+    """, (passenger_id, train_id, seat_type, travel_date, source, destination, booking_time, price, "Confirmed"))
 
     conn.commit() 
     cursor.close()
     conn.close()
+    return render_template("book_form.html", confirmed=True, data=data)
 
+@app.route('/download_ticket', methods=['POST'])
+def download_ticket():
+    data = request.form.to_dict()
     pdf_bytes = generate_ticket_pdf(data)
     pdf_bytes.seek(0)
     return send_file(
         pdf_bytes,
         mimetype='application/pdf',
         as_attachment=True,
-        download_name=f"{name}_ticket.pdf"
+        download_name=f"{data['name']}_ticket.pdf"
     )
+
+
+@app.route('/view_cancel', methods=['GET', 'POST'])
+def view_cancel():
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        password = request.form['password']
+        conn, cursor = get_cursor()
+
+        cursor.execute("SELECT * FROM Passenger WHERE PassengerName=%s AND Email=%s", (name, email))
+        passenger = cursor.fetchone()
+
+        if not passenger or passenger['Password'] != password:
+            flash('Invalid credentials!')
+            return redirect('/view_cancel')
+
+        passenger_id = passenger['PassengerID']
+        cursor.execute("""
+            SELECT DISTINCT 
+                b.BookingID, b.BookingTime, b.TravelDate, b.Source, b.Destination, 
+                b.SeatType, b.Status, b.Price, 
+                t.TrainID, t.TrainName, t.ArrivalTime, t.DepartureTime
+            FROM Booking b
+            JOIN Train t ON b.TrainID = t.TrainID AND t.Source = b.Source
+            WHERE b.PassengerID = %s
+        """, (passenger_id,))
+        bookings = cursor.fetchall()
+
+        cursor.close()
+        conn.close()
+        return render_template('show_bookings.html', bookings=bookings, passenger_id=passenger_id)
+
+    return render_template('view_cancel.html')
+
+@app.route('/cancel_booking/<int:booking_id>', methods=['POST'])
+def cancel_booking(booking_id):
+    
+    conn, cursor = get_cursor()
+
+    # Get booking details
+    cursor.execute("SELECT * FROM Booking WHERE BookingID = %s", (booking_id,))
+    booking = cursor.fetchone()
+    if not booking:
+        return jsonify({'status': 'error', 'message': 'Booking not found'})
+
+    train_id = booking['TrainID']
+    travel_date = booking['TravelDate']
+    coach_type = booking['SeatType']
+
+    # Delete the booking
+    cursor.execute("UPDATE Booking SET Status = 'Cancelled' WHERE BookingID = %s", (booking_id,))
+
+    # Increment seat count in SeatAvailability
+    cursor.execute("SELECT SeatID FROM Seats WHERE TrainID = %s AND SeatType = %s", (train_id, coach_type))
+    seat_row = cursor.fetchone()
+
+    seat_id = seat_row['SeatID']
+
+    # Step 2: Use seat_id, travel_date, source, destination to update SeatAvailability
+    cursor.execute("""
+        UPDATE SeatAvailability 
+        SET LeftSeats = LeftSeats + 1
+        WHERE SeatID = %s AND TravelDate = %s AND Source = %s AND Destination = %s
+    """, (seat_id, travel_date, booking['Source'], booking['Destination']))
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return jsonify({'status': 'success'})
 
 
 if __name__ == '__main__':

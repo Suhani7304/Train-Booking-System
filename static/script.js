@@ -29,3 +29,42 @@ document.addEventListener("DOMContentLoaded", function () {
         dateInput.addEventListener("change", validateDate);
     }
 });
+
+function cancelBooking(bookingId, rowId) {
+  if (confirm('Are you sure you want to cancel this booking?')) {
+    fetch(`/cancel_booking/${bookingId}`, { method: 'POST' })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'success') {
+          alert('Cancelled Successfully');
+          const row = document.getElementById(rowId);
+          if (row) {
+            // Update Status cell text to 'Cancelled'
+            const statusCell = row.querySelector('.status-cell');
+            if (statusCell) statusCell.textContent = 'Cancelled';
+
+            // Hide Cancel button
+            const cancelBtn = row.querySelector('.cancel-booking-btn');
+            if (cancelBtn) cancelBtn.style.display = 'none';
+          }
+        } else {
+          alert('Error cancelling booking');
+        }
+      })
+      .catch(() => alert('Network error while cancelling booking'));
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.view-details-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      viewDetails(button.dataset.train, button.dataset.date, button.dataset.source, button.dataset.dest);
+    });
+  });
+
+  document.querySelectorAll('.cancel-booking-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      cancelBooking(button.dataset.bookingId, button.dataset.rowId);
+    });
+  });
+});

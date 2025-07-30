@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head><title>View/Cancel Booking</title></head>
+<body>
+    <h2>Login to View/Cancel Bookings</h2>
+    <form method="POST">
+        Name: <input type="text" name="name" required><br>
+        Email: <input type="email" name="email" required><br>
+        Password: <input type="password" name="password" required><br>
+        <input type="submit" value="Login">
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <p style="color:red;">{{ messages[0] }}</p>
+      {% endif %}
+    {% endwith %}
+</body>
+</html>
