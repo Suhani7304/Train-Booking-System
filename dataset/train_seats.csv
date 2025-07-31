@@ -1,0 +1,251 @@
+SeatID,TrainID,SeatType,TotalSeats
+1,101,First AC (1A),60
+2,101,Second AC (2A),100
+3,101,Third AC (3A),150
+4,101,Sleeper (SL),300
+5,101,Chair Car (CC),500
+6,102,First AC (1A),60
+7,102,Second AC (2A),100
+8,102,Third AC (3A),150
+9,102,Sleeper (SL),300
+10,102,Chair Car (CC),500
+11,103,First AC (1A),60
+12,103,Second AC (2A),100
+13,103,Third AC (3A),150
+14,103,Sleeper (SL),300
+15,103,Chair Car (CC),500
+16,104,First AC (1A),60
+17,104,Second AC (2A),100
+18,104,Third AC (3A),150
+19,104,Sleeper (SL),300
+20,104,Chair Car (CC),500
+21,105,First AC (1A),60
+22,105,Second AC (2A),100
+23,105,Third AC (3A),150
+24,105,Sleeper (SL),300
+25,105,Chair Car (CC),500
+26,106,First AC (1A),60
+27,106,Second AC (2A),100
+28,106,Third AC (3A),150
+29,106,Sleeper (SL),300
+30,106,Chair Car (CC),500
+31,107,First AC (1A),60
+32,107,Second AC (2A),100
+33,107,Third AC (3A),150
+34,107,Sleeper (SL),300
+35,107,Chair Car (CC),500
+36,108,First AC (1A),60
+37,108,Second AC (2A),100
+38,108,Third AC (3A),150
+39,108,Sleeper (SL),300
+40,108,Chair Car (CC),500
+41,109,First AC (1A),60
+42,109,Second AC (2A),100
+43,109,Third AC (3A),150
+44,109,Sleeper (SL),300
+45,109,Chair Car (CC),500
+46,110,First AC (1A),60
+47,110,Second AC (2A),100
+48,110,Third AC (3A),150
+49,110,Sleeper (SL),300
+50,110,Chair Car (CC),500
+51,111,First AC (1A),60
+52,111,Second AC (2A),100
+53,111,Third AC (3A),150
+54,111,Sleeper (SL),300
+55,111,Chair Car (CC),500
+56,112,First AC (1A),60
+57,112,Second AC (2A),100
+58,112,Third AC (3A),150
+59,112,Sleeper (SL),300
+60,112,Chair Car (CC),500
+61,113,First AC (1A),60
+62,113,Second AC (2A),100
+63,113,Third AC (3A),150
+64,113,Sleeper (SL),300
+65,113,Chair Car (CC),500
+66,114,First AC (1A),60
+67,114,Second AC (2A),100
+68,114,Third AC (3A),150
+69,114,Sleeper (SL),300
+70,114,Chair Car (CC),500
+71,115,First AC (1A),60
+72,115,Second AC (2A),100
+73,115,Third AC (3A),150
+74,115,Sleeper (SL),300
+75,115,Chair Car (CC),500
+76,116,First AC (1A),60
+77,116,Second AC (2A),100
+78,116,Third AC (3A),150
+79,116,Sleeper (SL),300
+80,116,Chair Car (CC),500
+81,117,First AC (1A),60
+82,117,Second AC (2A),100
+83,117,Third AC (3A),150
+84,117,Sleeper (SL),300
+85,117,Chair Car (CC),500
+86,118,First AC (1A),60
+87,118,Second AC (2A),100
+88,118,Third AC (3A),150
+89,118,Sleeper (SL),300
+90,118,Chair Car (CC),500
+91,119,First AC (1A),60
+92,119,Second AC (2A),100
+93,119,Third AC (3A),150
+94,119,Sleeper (SL),300
+95,119,Chair Car (CC),500
+96,120,First AC (1A),60
+97,120,Second AC (2A),100
+98,120,Third AC (3A),150
+99,120,Sleeper (SL),300
+100,120,Chair Car (CC),500
+101,121,First AC (1A),60
+102,121,Second AC (2A),100
+103,121,Third AC (3A),150
+104,121,Sleeper (SL),300
+105,121,Chair Car (CC),500
+106,122,First AC (1A),60
+107,122,Second AC (2A),100
+108,122,Third AC (3A),150
+109,122,Sleeper (SL),300
+110,122,Chair Car (CC),500
+111,123,First AC (1A),60
+112,123,Second AC (2A),100
+113,123,Third AC (3A),150
+114,123,Sleeper (SL),300
+115,123,Chair Car (CC),500
+116,124,First AC (1A),60
+117,124,Second AC (2A),100
+118,124,Third AC (3A),150
+119,124,Sleeper (SL),300
+120,124,Chair Car (CC),500
+121,125,First AC (1A),60
+122,125,Second AC (2A),100
+123,125,Third AC (3A),150
+124,125,Sleeper (SL),300
+125,125,Chair Car (CC),500
+126,126,First AC (1A),60
+127,126,Second AC (2A),100
+128,126,Third AC (3A),150
+129,126,Sleeper (SL),300
+130,126,Chair Car (CC),500
+131,127,First AC (1A),60
+132,127,Second AC (2A),100
+133,127,Third AC (3A),150
+134,127,Sleeper (SL),300
+135,127,Chair Car (CC),500
+136,128,First AC (1A),60
+137,128,Second AC (2A),100
+138,128,Third AC (3A),150
+139,128,Sleeper (SL),300
+140,128,Chair Car (CC),500
+141,129,First AC (1A),60
+142,129,Second AC (2A),100
+143,129,Third AC (3A),150
+144,129,Sleeper (SL),300
+145,129,Chair Car (CC),500
+146,130,First AC (1A),60
+147,130,Second AC (2A),100
+148,130,Third AC (3A),150
+149,130,Sleeper (SL),300
+150,130,Chair Car (CC),500
+151,131,First AC (1A),60
+152,131,Second AC (2A),100
+153,131,Third AC (3A),150
+154,131,Sleeper (SL),300
+155,131,Chair Car (CC),500
+156,132,First AC (1A),60
+157,132,Second AC (2A),100
+158,132,Third AC (3A),150
+159,132,Sleeper (SL),300
+160,132,Chair Car (CC),500
+161,133,First AC (1A),60
+162,133,Second AC (2A),100
+163,133,Third AC (3A),150
+164,133,Sleeper (SL),300
+165,133,Chair Car (CC),500
+166,134,First AC (1A),60
+167,134,Second AC (2A),100
+168,134,Third AC (3A),150
+169,134,Sleeper (SL),300
+170,134,Chair Car (CC),500
+171,135,First AC (1A),60
+172,135,Second AC (2A),100
+173,135,Third AC (3A),150
+174,135,Sleeper (SL),300
+175,135,Chair Car (CC),500
+176,136,First AC (1A),60
+177,136,Second AC (2A),100
+178,136,Third AC (3A),150
+179,136,Sleeper (SL),300
+180,136,Chair Car (CC),500
+181,137,First AC (1A),60
+182,137,Second AC (2A),100
+183,137,Third AC (3A),150
+184,137,Sleeper (SL),300
+185,137,Chair Car (CC),500
+186,138,First AC (1A),60
+187,138,Second AC (2A),100
+188,138,Third AC (3A),150
+189,138,Sleeper (SL),300
+190,138,Chair Car (CC),500
+191,139,First AC (1A),60
+192,139,Second AC (2A),100
+193,139,Third AC (3A),150
+194,139,Sleeper (SL),300
+195,139,Chair Car (CC),500
+196,140,First AC (1A),60
+197,140,Second AC (2A),100
+198,140,Third AC (3A),150
+199,140,Sleeper (SL),300
+200,140,Chair Car (CC),500
+201,141,First AC (1A),60
+202,141,Second AC (2A),100
+203,141,Third AC (3A),150
+204,141,Sleeper (SL),300
+205,141,Chair Car (CC),500
+206,142,First AC (1A),60
+207,142,Second AC (2A),100
+208,142,Third AC (3A),150
+209,142,Sleeper (SL),300
+210,142,Chair Car (CC),500
+211,143,First AC (1A),60
+212,143,Second AC (2A),100
+213,143,Third AC (3A),150
+214,143,Sleeper (SL),300
+215,143,Chair Car (CC),500
+216,144,First AC (1A),60
+217,144,Second AC (2A),100
+218,144,Third AC (3A),150
+219,144,Sleeper (SL),300
+220,144,Chair Car (CC),500
+221,145,First AC (1A),60
+222,145,Second AC (2A),100
+223,145,Third AC (3A),150
+224,145,Sleeper (SL),300
+225,145,Chair Car (CC),500
+226,146,First AC (1A),60
+227,146,Second AC (2A),100
+228,146,Third AC (3A),150
+229,146,Sleeper (SL),300
+230,146,Chair Car (CC),500
+231,147,First AC (1A),60
+232,147,Second AC (2A),100
+233,147,Third AC (3A),150
+234,147,Sleeper (SL),300
+235,147,Chair Car (CC),500
+236,148,First AC (1A),60
+237,148,Second AC (2A),100
+238,148,Third AC (3A),150
+239,148,Sleeper (SL),300
+240,148,Chair Car (CC),500
+241,149,First AC (1A),60
+242,149,Second AC (2A),100
+243,149,Third AC (3A),150
+244,149,Sleeper (SL),300
+245,149,Chair Car (CC),500
+246,150,First AC (1A),60
+247,150,Second AC (2A),100
+248,150,Third AC (3A),150
+249,150,Sleeper (SL),300
+250,150,Chair Car (CC),500

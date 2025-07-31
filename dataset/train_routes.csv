@@ -1,0 +1,51 @@
+TrainID,Route
+101,Kalka -> Chandigarh -> Ambala Cantt -> Delhi
+102,Kanyakumari -> Nagercoil -> Madurai -> Trichy
+103,Rajkot -> Surendranagar -> Ahmedabad -> Vadodara
+104,Howrah -> Kharagpur -> Tatanagar -> Rourkela
+105,Jabalpur -> Katni -> Satna -> Allahabad
+106,Ernakulam -> Thrissur -> Palakkad -> Coimbatore
+107,Bhubaneswar -> Cuttack -> Jajpur Keonjhar -> Bhadrak
+108,Varanasi -> Mirzapur -> Prayagraj -> Kanpur
+109,Mumbai -> Thane -> Nashik -> Manmad
+110,Delhi -> Jaipur -> Ajmer -> Udaipur
+111,Delhi -> Agra -> Gwalior -> Jhansi
+112,Mumbai -> Pune -> Solapur -> Hyderabad
+113,Delhi -> Moradabad -> Bareilly -> Lucknow
+114,Chennai -> Tirupati -> Nellore -> Vijayawada
+115,Bangalore -> Tumkur -> Davangere -> Hubli
+116,Howrah -> Asansol -> Dhanbad -> Gaya
+117,Kalka -> Ambala Cantt -> Karnal -> Panipat
+118,Kanyakumari -> Tirunelveli -> Madurai -> Salem
+119,Ahmedabad -> Anand -> Vadodara -> Surat
+120,Delhi -> Mathura -> Agra -> Jhansi
+121,Jaipur -> Ajmer -> Bhilwara -> Udaipur
+122,Nagpur -> Amravati -> Akola -> Jalgaon
+123,Indore -> Ujjain -> Ratlam -> Kota
+124,Patna -> Mokama -> Kiul -> Jhajha
+125,Bhopal -> Itarsi -> Nagpur -> Wardha
+126,Lucknow -> Kanpur -> Fatehpur -> Prayagraj
+127,Amritsar -> Jalandhar -> Ludhiana -> Ambala Cantt
+128,Guwahati -> Lumding -> Silchar -> Agartala
+129,Delhi -> Rohtak -> Bhiwani -> Hisar
+130,Hyderabad -> Warangal -> Khammam -> Vijayawada
+131,Mumbai -> Surat -> Bharuch -> Vadodara
+132,Chennai -> Villupuram -> Trichy -> Dindigul
+133,Kolkata -> Bardhaman -> Asansol -> Dhanbad
+134,Dehradun -> Haridwar -> Roorkee -> Saharanpur
+135,Varanasi -> Jaunpur -> Sultanpur -> Lucknow
+136,Delhi -> Ghaziabad -> Meerut -> Muzaffarnagar
+137,Pune -> Ahmednagar -> Aurangabad -> Nanded
+138,Surat -> Navsari -> Valsad -> Vapi
+139,Bangalore -> Mysore -> Chamarajanagar
+140,Ahmedabad -> Rajkot -> Jamnagar -> Dwarka
+141,Chandigarh -> Ambala Cantt -> Saharanpur -> Roorkee
+142,Howrah -> Kharagpur -> Balasore -> Cuttack
+143,Gwalior -> Jhansi -> Lalitpur -> Bina
+144,Jammu -> Udhampur -> Katra
+145,Agra -> Tundla -> Etawah -> Kanpur
+146,Bhubaneswar -> Cuttack -> Bhadrak -> Balasore
+147,Delhi -> Aligarh -> Tundla -> Etawah
+148,Jodhpur -> Pali -> Marwar -> Abu Road
+149,Ranchi -> Bokaro -> Dhanbad -> Asansol
+150,Thiruvananthapuram -> Kollam -> Alappuzha -> Ernakulam
