@@ -1,0 +1,100 @@
+/* Body styling */
+body {
+    margin: 0;
+    padding: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff7f0;
+    color: #5a3e36;
+}
+
+/* Page heading */
+h2 {
+    text-align: center;
+    color: #d35400;
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+/* Card container styling */
+.train-card {
+    background-color: #fff3e0;
+    border: 1px solid #f5cba7;
+    border-left: 8px solid #e67e22;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 700px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Info and button row */
+.card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+/* Left content in the card */
+.card-details {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* Paragraphs inside card */
+.card-details p {
+    margin: 8px 0;
+    font-size: 1rem;
+}
+
+/* Price styling */
+.card-details p:last-of-type {
+    font-weight: bold;
+    color: #6e2c00;
+}
+
+/* Book button */
+.card-button {
+    margin-top: 10px;
+    align-self: flex-end;
+}
+
+.card-button button {
+    padding: 10px 20px;
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.card-button button:hover {
+    background-color: #e67e22;
+}
+
+/* No trains found message */
+p[style*="color:red"] {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 40px;
+}
+
+/* Back link styling */
+a {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 1rem;
+    text-decoration: none;
+    color: #e67e22;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #ca6f1e;
+}

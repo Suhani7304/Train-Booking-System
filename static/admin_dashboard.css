@@ -1,0 +1,92 @@
+/* Base */
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #fffaf5;
+    color: #4e342e;
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    color: #d35400;
+    margin-bottom: 30px;
+}
+
+/* Top Button */
+.top-bar {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.add-btn {
+    background-color: #f39c12;
+    color: white;
+    padding: 10px 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.add-btn:hover {
+    background-color: #e67e22;
+}
+
+/* Table */
+.table-container {
+    display: flex;
+    justify-content: center;
+}
+
+table {
+    border-collapse: collapse;
+    width: 90%;
+    background-color: #fff3e0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+th, td {
+    border: 1px solid #f5cba7;
+    padding: 12px 16px;
+    text-align: center;
+}
+
+th {
+    background-color: #f8c471;
+    color: #4e342e;
+}
+
+tr:nth-child(even) {
+    background-color: #fdf2e9;
+}
+
+/* Action buttons */
+.edit-btn,
+.delete-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background-color: #27ae60;
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #219150;
+}
+
+.delete-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
+}

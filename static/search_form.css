@@ -1,0 +1,82 @@
+/* Full-page background with warm gradient */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: url('/static/train_image2.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #5a3e36;
+}
+
+
+/* Centered form container */
+form {
+    background-color: #fff8f0;
+    padding: 35px 45px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(90, 62, 54, 0.2);
+    text-align: center;
+    width: 400px;
+    border: 1px solid #ffd4a3;
+}
+
+/* Heading */
+h2 {
+    margin-bottom: 25px;
+    color: #d35400;
+    font-size: 1.8rem;
+}
+
+/* Labels */
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    text-align: left;
+    color: #7d4b32;
+}
+
+/* Dropdown Select */
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #d9a074;
+    background-color: #fff1e6;
+    font-size: 1rem;
+    color: #5a3e36;
+}
+
+/* Button */
+button {
+    margin-top: 30px;
+    width: 100%;
+    padding: 12px;
+    background-color: #e67e22;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #ca6f1e;
+}
+.main-heading {
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    text-align: center;
+    font-size: 2.2rem;
+    color: #d35400;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px #f5cba7;
+}

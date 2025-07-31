@@ -3,46 +3,7 @@
 <head>
     <title>Passenger Details</title>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <style>
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            backdrop-filter: blur(5px);
-            background-color: rgba(0, 0, 0, 0.3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        .confirmation-box {
-            background-color: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: left;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            max-width: 400px;
-            width: 90%;
-        }
-        .confirmation-box h2 {
-            color: green;
-            margin-top: 0;
-        }
-        .download-btn {
-            background-color: #007BFF;
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .download-btn:hover {
-            background-color: #0056b3;
-        }  
-    </style>
+    <link rel="stylesheet" href="/static/book_form.css">
 </head>
 <body>
     {% if confirmed %}
@@ -76,8 +37,8 @@
         <input type="hidden" name="departure" value="{{ data.departure }}">
         <input type="hidden" name="route" value="{{ data.route }}">
 
-        <label>Name:</label><input name="name" required><br>
-        <label>Age:</label><input name="age" required><br>
+        <label>Name:</label><input name="name" type="text" required><br>
+        <label>Age:</label><input name="age" type="number" required><br>
         <label>Email:</label><input name="email" type="email" required><br>
         <label>Gender:</label>
         <select name="gender">

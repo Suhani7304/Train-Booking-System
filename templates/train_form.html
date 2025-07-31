@@ -2,12 +2,13 @@
 <html>
 <head>
     <title>Train Booking</title>
+    <link rel="stylesheet" href="/static/train_form.css">
 </head>
 <body>
     <h2>{{ 'Edit' if train else 'Add' }} Train</h2>
     <form method="POST">
-        Train ID: <input name="train_id" value="{{ train.TrainID if train else '' }}" required><br>
-        Train Name: <input name="train_name" value="{{ train.TrainName if train else '' }}" required><br>
+        Train ID: <input name="train_id" type="text" value="{{ train.TrainID if train else '' }}" required><br>
+        Train Name: <input name="train_name" type="text" value="{{ train.TrainName if train else '' }}" required><br>
         Price: <input name="price" type="number" value="{{ train.Price if train else '' }}"><br>
         Route (comma-separated): <input name="route" value="{{ route_str if route_str else '' }}"><br>
 

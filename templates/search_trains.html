@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html>
-<head><title>Available Trains</title></head>
+<head>
+    <title>Available Trains</title>
+    <link rel="stylesheet" href="/static/search_trains.css">
+</head>
 <body>
     <h2>Available Trains from {{ source }} to {{ destination }}</h2>
 
     {% if trains %}
         {% for train in trains %}
-        <div style="border: 1px solid black; margin: 10px; padding: 10px;">
-            <p><strong>{{ train.train_name }}</strong> (ID: {{ train.train_id }})</p>
-            <p>Route: {{ train.route }}</p>
-            <p>From: {{ train.source }} - To: {{ train.destination }}</p>
-            <p>Departure: {{ train.departure }} | Arrival: {{ train.arrival }}</p>
-            <p>
-                Price:
-                Sleeper (SL) ₹{{ train.SL }},
-                Chair Car (CC) ₹{{ train.CC }},
-                Third AC (3A) ₹{{ train.A3 }},
-                Second AC (2A) ₹{{ train.A2 }},
-                First AC (1A) ₹{{ train.A1 }}
-            </p>
-            <form method="POST" action="/book">
-                {% for key, val in train.items() %}
-                    <input type="hidden" name="{{ key }}" value="{{ val }}">
-                {% endfor %}
-                <button type="submit">Book</button>
-            </form>
+        <div class="train-card">
+            <div class="card-content">
+                <div class="card-details">
+                    <p><strong>{{ train.train_name }}</strong> (ID: {{ train.train_id }})</p>
+                    <p>Route: {{ train.route }}</p>
+                    <p>From: {{ train.source }} - To: {{ train.destination }}</p>
+                    <p>Departure: {{ train.departure }} | Arrival: {{ train.arrival }}</p>
+                    <p>
+                        Price:
+                        Sleeper (SL) ₹{{ train.SL }},
+                        Chair Car (CC) ₹{{ train.CC }},
+                        Third AC (3A) ₹{{ train.A3 }},
+                        Second AC (2A) ₹{{ train.A2 }},
+                        First AC (1A) ₹{{ train.A1 }}
+                    </p>
+                </div>
+                <div class="card-button">
+                    <form method="POST" action="/book">
+                        {% for key, val in train.items() %}
+                            <input type="hidden" name="{{ key }}" value="{{ val }}">
+                        {% endfor %}
+                        <button type="submit">Book</button>
+                    </form>
+                </div>
+            </div>
         </div>
         {% endfor %}
     {% else %}

@@ -1,0 +1,73 @@
+/* Page styling */
+body {
+    margin: 0;
+    padding: 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff8f2;
+    color: #5a3e36;
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    color: #d35400;
+    margin-bottom: 30px;
+}
+
+/* Form container */
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff3e0;
+    padding: 30px 35px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(90, 62, 54, 0.1);
+    border: 1px solid #f5cba7;
+}
+
+/* Input fields */
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: 1px solid #d9a074;
+    background-color: #fff1e6;
+    font-size: 1rem;
+    color: #5a3e36;
+}
+
+/* Seat types header */
+h4 {
+    margin-top: 30px;
+    color: #af601a;
+}
+
+/* Button */
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #f39c12;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #e67e22;
+}
+
+/* Time fields styling */
+#timeFields p {
+    margin-bottom: 25px;
+    background-color: #fff9f3;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #f8cba7;
+}

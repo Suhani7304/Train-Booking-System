@@ -2,13 +2,13 @@
 <html>
 <head>
     <title>Train Booking</title>
+    <link rel="stylesheet" href="/static/index.css">
 </head>
 <body>
-    <!-- to se flash msg in html-->
-     <!--all the flash messages are saved in get_flashed_messages().. provided by jinja2 and it is by default passed tp html pg rendered... when html teemplate call this function... flash message wll be removed from this function-->
+    <!-- Flash messages -->
     {% with messages = get_flashed_messages() %}
         {% if messages %}
-            <div style="color: red;">
+            <div class="flash-messages">
             {% for msg in messages %}
                 <p>{{ msg }}</p>
             {% endfor %}
@@ -16,9 +16,19 @@
         {% endif %}
     {% endwith %}
 
-    <h1>Welcome to Train Booking System</h1>
-    <a href="/admin_login"><button>Admin Dashboard</button></a>
-    <button onclick="location.href='/search'">Book Train</button>
-    <button onclick="location.href='/view_cancel'">View/Cancel Booking</button>
+    <!-- Welcome message on top -->
+    <div id="welcome-msg">Welcome to RailYatra</div>
+
+    <!-- Admin button top right -->
+    <div id="admin-button">
+        <a href="/admin_login"><button>Admin Dashboard</button></a>
+    </div>
+
+    <!-- Right side container -->
+    <div id="button-container">
+        <p>Your journey begins here — Book your train with ease!</p>
+        <button onclick="location.href='/search'">Book Train</button>
+        <button onclick="location.href='/view_cancel'">View/Cancel Booking</button>
+    </div>
 </body>
 </html>

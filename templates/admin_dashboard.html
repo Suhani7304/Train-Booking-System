@@ -2,30 +2,41 @@
 <html>
 <head>
     <title>Train Booking</title>
+    <link rel="stylesheet" href="/static/admin_dashboard.css">
 </head>
 <body>
     <h2>Admin Dashboard</h2>
-    <a href="/train_form"><button>Add Train</button></a>
-    <table border="1">
-        <tr>
-            <th>Train ID</th>
-            <th>Train Name</th>
-            <th>Route</th>
-            <th>Actions</th>
-        </tr>
-        {% for train in trains %}
-        <tr>
-            <td>{{ train.TrainID }}</td>
-            <td>{{ train.TrainName }}</td>
-            <td>{{ train.Route }}</td>
-            <td>
-                <a href="/train_form/{{ train.TrainID }}"><button>Edit</button></a>
-                <form action="/delete_train/{{ train.TrainID }}" method="POST" style="display:inline;">
-                    <button onclick="return confirm('Are you sure?')" type="submit">Delete</button>
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+
+    <div class="top-bar">
+        <a href="/train_form"><button class="add-btn">Add Train</button></a>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Train ID</th>
+                    <th>Train Name</th>
+                    <th>Route</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for train in trains %}
+                <tr>
+                    <td>{{ train.TrainID }}</td>
+                    <td>{{ train.TrainName }}</td>
+                    <td>{{ train.Route }}</td>
+                    <td>
+                        <a href="/train_form/{{ train.TrainID }}"><button class="edit-btn">Edit</button></a>
+                        <form action="/delete_train/{{ train.TrainID }}" method="POST" style="display:inline;">
+                            <button class="delete-btn" onclick="return confirm('Are you sure?')" type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
     </body>
 </html>

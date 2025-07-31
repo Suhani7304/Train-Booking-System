@@ -1,0 +1,67 @@
+/* Page background and font */
+body {
+    margin: 0;
+    padding: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff7f0;
+    color: #5a3e36;
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    color: #d35400;
+    margin-bottom: 30px;
+}
+
+/* Form styling */
+form {
+    max-width: 350px;
+    margin: 0 auto;
+    background-color: #fff3e0;
+    padding: 30px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(90, 62, 54, 0.15);
+    border: 1px solid #f5cba7;
+}
+
+/* Labels and inputs styling */
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+    width: 95%;
+    padding: 10px;
+    margin-top: 8px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: 1px solid #d9a074;
+    background-color: #fff1e6;
+    font-size: 1rem;
+    color: #5a3e36;
+}
+
+/* Submit button */
+form input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #f39c12;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form input[type="submit"]:hover {
+    background-color: #e67e22;
+}
+
+/* Flash message */
+p {
+    text-align: center;
+    font-weight: bold;
+    color: #dc3545;
+    margin-top: 20px;
+}

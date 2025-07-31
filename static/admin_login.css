@@ -1,0 +1,64 @@
+/* Page background and base font */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fffaf5;
+    color: #4e342e;
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    margin-top: 60px;
+    color: #d35400;
+}
+
+/* Form container */
+form {
+    background-color: #fff3e0;
+    max-width: 400px;
+    margin: 30px auto;
+    padding: 30px 35px;
+    border-radius: 10px;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #f5cba7;
+}
+
+/* Label and input alignment */
+label {
+    display: inline-block;
+    width: 90px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: calc(100% - 100px);
+    padding: 8px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #e0b894;
+    background-color: #fffaf0;
+    color: #5a3e36;
+    font-size: 1rem;
+}
+
+/* Button styling */
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #f39c12;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #e67e22;
+}

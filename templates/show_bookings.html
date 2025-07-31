@@ -3,30 +3,7 @@
 <head>
     <title>Your Bookings</title>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <style>
-        .status-box {
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-weight: bold;
-            display: inline-block;
-            font-size: 12px;
-            color: white;
-        }
-        .confirmed {
-            background-color: #28a745;
-        }
-        .cancelled {
-            background-color: #dc3545;
-        }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            padding: 8px 10px;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="/static/show_bookings.css">
 </head>
 <body>
     <h2>Your Bookings</h2>

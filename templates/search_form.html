@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
-<head><title>Search Trains</title></head>
+<head>
+    <title>Search Trains</title>
+    <link rel="stylesheet" href="/static/search_form.css">
+</head>
 <body>
-    <h2>Search for Trains</h2>
+    <h2 class="main-heading">Search for Trains</h2>
     <form method="POST" action="/search">
         <label for="source">From:</label>
         <select name="source" required>
