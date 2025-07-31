@@ -265,6 +265,117 @@ def cancel_booking(booking_id):
     conn.close()
     return jsonify({'status': 'success'})
 
+@app.route('/admin_login', methods=['GET', 'POST'])
+def admin_login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        conn, cursor = get_cursor()
+        cursor.execute("SELECT * FROM admin WHERE username=%s AND password=%s", (username, password))
+        cursor.close()
+        conn.close()
+        if cursor.fetchone():
+            return redirect(url_for('admin_dashboard'))
+        flash("Invalid credentials")
+        return redirect('/admin_login')
+    return render_template('admin_login.html')
+
+
+@app.route('/admin_dashboard')
+def admin_dashboard():
+    conn, cursor = get_cursor()
+    cursor.execute("""
+        SELECT t.TrainID, t.TrainName,
+        GROUP_CONCAT(DISTINCT r.Route ORDER BY r.Route SEPARATOR ' -> ') AS Route
+        FROM train t JOIN Route r ON t.TrainID = r.TrainID
+        GROUP BY t.TrainID, t.TrainName
+    """)
+    trains = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return render_template('admin_dashboard.html', trains=trains)
+
+
+@app.route('/train_form', defaults={'train_id': None}, methods=['GET', 'POST'])
+@app.route('/train_form/<train_id>', methods=['GET', 'POST'])
+def train_form(train_id):
+    conn, cursor = get_cursor()
+    if request.method == 'POST':
+        train_id_input = request.form['train_id']
+        train_name = request.form['train_name']
+        price = request.form['price']
+        route = [x.strip() for x in request.form['route'].split(',')]
+
+        # DELETE OLD DATA IF EDIT
+        if train_id:
+            cursor.execute("DELETE FROM train WHERE TrainID=%s", (train_id,))
+            cursor.execute("DELETE FROM Route WHERE TrainID=%s", (train_id,))
+            cursor.execute("DELETE FROM Seats WHERE TrainID=%s", (train_id,))
+
+        route_str = " -> ".join(route)  # Join stations into one string
+        cursor.execute("INSERT INTO Route (TrainID, Route) VALUES (%s, %s)", (train_id_input, route_str))
+
+        # INSERT INTO train
+        for i in range(len(route) - 1):
+            arr = request.form.get(f'arrival_time_{i}', '')
+            dep = request.form.get(f'departure_time_{i}', '')
+            cursor.execute("SELECT MAX(ID) FROM train")
+            result = cursor.fetchone()
+            max_id = list(result.values())[0] if result and list(result.values())[0] is not None else 0
+            new_id = max_id + 1
+
+            cursor.execute("""
+                INSERT INTO train (ID, TrainID, TrainName, Source, Destination, ArrivalTime, DepartureTime, Price)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            """, (new_id, train_id_input, train_name, route[i], route[i + 1], arr, dep, price))
+
+
+        # INSERT INTO seats
+        for seat_type in ['Chair Car (CC)', 'First AC (1A)', 'Second AC (2A)', 'Third AC (3A)']:
+            total = request.form.get(f'seat_{seat_type}')
+            cursor.execute("SELECT MAX(SeatID) FROM Seats")
+            result = cursor.fetchone()
+            max_id = list(result.values())[0] if result and list(result.values())[0] is not None else 0
+            new_id = max_id + 1
+            if total:
+                cursor.execute("""
+                    INSERT INTO seats (SeatID, TrainID, SeatType, TotalSeats)
+                    VALUES (%s, %s, %s, %s)
+                """, (new_id, train_id_input, seat_type, total))
+
+        conn.commit()
+        return redirect('/admin_dashboard')
+
+    # GET method (Edit)
+    train = None
+    route_str = None
+    seats = {}
+    if train_id:
+        cursor.execute("SELECT * FROM train WHERE TrainID=%s", (train_id,))
+        train = cursor.fetchone()
+        cursor.execute("SELECT Route FROM Route WHERE TrainID=%s", (train_id,))
+        row = cursor.fetchone()
+        route_str = row['Route'].replace('->', ',') if row else ''
+        cursor.execute("SELECT SeatType, TotalSeats FROM Seats WHERE TrainID=%s", (train_id,))
+        seats = {row['SeatType']: row['TotalSeats'] for row in cursor.fetchall()}
+
+    cursor.close()
+    conn.close()
+
+    return render_template("train_form.html", train=train, route_str=route_str, seats=seats)
+
+
+@app.route('/delete_train/<train_id>', methods=['POST'])
+def delete_train(train_id):
+    conn, cursor = get_cursor()
+    cursor.execute("DELETE FROM train WHERE TrainID = %s", (train_id,))
+    cursor.execute("DELETE FROM Seats WHERE TrainID = %s", (train_id,))
+    cursor.execute("DELETE FROM Route WHERE TrainID = %s", (train_id,))
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return redirect('/admin_dashboard')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

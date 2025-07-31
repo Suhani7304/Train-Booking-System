@@ -47,12 +47,26 @@ with open(r"C:\Users\abcde\Downloads\train_seats.csv", 'r') as file:
 
     # 3. Insert Query
     insert_query = """
+    INSERT INTO Admin (ID, UserName, Age, Email, PhoneNumber, Password)
+    VALUES (%s, %s, %s, %s, %s, %s) 
+    """ # %s corresponds to the value we will insert
+
+    for row in reader:
+        cursor.execute(insert_query, row)
+
+with open(r"C:\Users\abcde\Downloads\admin_dataset.csv", 'r') as file:
+    reader = csv.reader(file) #creates a csv reader.. each row is list of string
+    next(reader)  # Skip header
+
+    # 3. Insert Query
+    insert_query = """
     INSERT INTO Seats (SeatID, TrainID, SeatType, TotalSeats)
     VALUES (%s, %s, %s, %s) 
     """ # %s corresponds to the value we will insert
 
     for row in reader:
         cursor.execute(insert_query, row)
+
 
 conn.commit()
 conn.close()

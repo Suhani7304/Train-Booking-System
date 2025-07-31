@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Train Booking</title>
+</head>
+<body>
+    <h2>{{ 'Edit' if train else 'Add' }} Train</h2>
+    <form method="POST">
+        Train ID: <input name="train_id" value="{{ train.TrainID if train else '' }}" required><br>
+        Train Name: <input name="train_name" value="{{ train.TrainName if train else '' }}" required><br>
+        Price: <input name="price" type="number" value="{{ train.Price if train else '' }}"><br>
+        Route (comma-separated): <input name="route" value="{{ route_str if route_str else '' }}"><br>
+
+        <div id="timeFields"></div>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const routeInput = document.querySelector('input[name="route"]');
+            const timeFields = document.getElementById('timeFields');
+
+            routeInput.addEventListener('input', function () {
+                const stations = routeInput.value.split(',').map(s => s.trim());
+                timeFields.innerHTML = '';
+                for (let i = 0; i < stations.length - 1; i++) {
+                    timeFields.innerHTML += `
+                        <p><b>${stations[i]} → ${stations[i + 1]}</b><br>
+                        Arrival Time: <input name="arrival_time_${i}" placeholder="e.g., 10:00"><br>
+                        Departure Time: <input name="departure_time_${i}" placeholder="e.g., 10:15"><br></p>`;
+                }
+            });
+
+            // Safely inject route string from Jinja
+            const routeStr = {{ route_str|tojson|safe }};
+            if (routeStr) {
+                routeInput.value = routeStr;
+                routeInput.dispatchEvent(new Event('input'));
+            }
+        });
+        </script>
+        <h4>Seat Types</h4>
+        {% set seat_types = ['Chair Car (CC)', 'First AC (1A)', 'Second AC (2A)', 'Third AC (3A)'] %}
+        {% for seat in seat_types %}
+            {{ seat }}: <input name="seat_{{ seat }}" type="number" value="{{ seats[seat] if seats and seat in seats else '' }}"><br>
+        {% endfor %}
+        <button type="submit">Submit</button>
+    </form>
+    </body>
+</html>
